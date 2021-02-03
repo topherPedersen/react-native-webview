@@ -145,6 +145,10 @@ export interface WebViewRenderProcessGoneDetail {
   didCrash: boolean;
 }
 
+export interface LoadResource {
+  resourceUrl: string;
+}
+
 export type WebViewEvent = NativeSyntheticEvent<WebViewNativeEvent>;
 
 export type WebViewProgressEvent = NativeSyntheticEvent<
@@ -168,6 +172,8 @@ export type WebViewHttpErrorEvent = NativeSyntheticEvent<WebViewHttpError>;
 export type WebViewRenderProcessGoneEvent = NativeSyntheticEvent<WebViewRenderProcessGoneDetail>;
 
 export type WebViewScrollEvent = NativeSyntheticEvent<NativeScrollEvent>;
+
+export type LoadResourceEvent = NativeSyntheticEvent<LoadResource>;
 
 export type DataDetectorTypes =
   | 'phoneNumber'
@@ -302,6 +308,7 @@ export interface AndroidNativeWebViewProps extends CommonNativeWebViewProps {
   thirdPartyCookiesEnabled?: boolean;
   messagingModuleName?: string;
   readonly urlPrefixesForDefaultIntent?: string[];
+  onLoadResource?: (event: LoadResourceEvent) => void;
 }
 
 export declare type ContentInsetAdjustmentBehavior = 'automatic' | 'scrollableAxes' | 'never' | 'always';
@@ -1093,4 +1100,11 @@ export interface WebViewSharedProps extends ViewProps {
    * Append to the existing user-agent. Overridden if `userAgent` is set.
    */
   applicationNameForUserAgent?: string;
+
+  /**
+   * Function which mirrors Android's WebViewClient onLoadResource override method.
+   * Allows react-native <WebView/> on Android to watch for dynamically loaded 
+   * resources such as attached PDFs
+   */
+  onLoadResource?: (event: LoadResourceEvent) => void;
 }
