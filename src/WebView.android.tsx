@@ -313,14 +313,21 @@ class WebView extends React.Component<AndroidWebViewProps, State> {
   */
 
   onLoadResource = (event: any) => {
-    // const { onLoadResource } = this.props;
 
-    const { nativeEvent: { url } } = event;
+    const { onLoadResource } = this.props;
 
+    // const { nativeEvent: { url } } = event;
+
+    /*
     try {
       console.warn(url);
     } catch (error) {
       console.warn("ERROR IN: onLoadResource");
+    }
+    */
+
+    if (onLoadResource) {
+      onLoadResource(event);
     }
 
   }
