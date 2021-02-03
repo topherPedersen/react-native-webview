@@ -31,7 +31,7 @@ import {
   NativeWebViewAndroid,
   State,
   RNCWebViewUIManagerAndroid,
-  LoadResourceEvent,
+  // LoadResourceEvent,
 } from './WebViewTypes';
 
 import styles from './WebView.styles';
@@ -297,20 +297,32 @@ class WebView extends React.Component<AndroidWebViewProps, State> {
     }
   };
 
+  /*
   onLoadResource = (event: LoadResourceEvent) => {
-    console.warn("onLoadResource is working");
+    // console.warn("onLoadResource is working");
+    try {
+      console.warn(event.url);
+    } catch (error) {
+      console.warn("ERROR IN: onLoadResource");
+    }
     const { onLoadResource } = this.props;
     if (onLoadResource) {
       onLoadResource(event);
     }
   }
+  */
 
-  onLoadingResource = (event: LoadResourceEvent) => {
-    console.warn("onLoadingResource is working");
-    const { onLoadingResource } = this.props;
-    if (onLoadingResource) {
-      onLoadingResource(event);
+  onLoadResource = (event: any) => {
+    // const { onLoadResource } = this.props;
+
+    const { nativeEvent: { url } } = event;
+
+    try {
+      console.warn(url);
+    } catch (error) {
+      console.warn("ERROR IN: onLoadResource");
     }
+
   }
 
   render() {
@@ -318,7 +330,6 @@ class WebView extends React.Component<AndroidWebViewProps, State> {
       onMessage,
       onShouldStartLoadWithRequest: onShouldStartLoadWithRequestProp,
       onLoadResource,
-      onLoadingResource, // need this?
       originWhitelist,
       renderError,
       renderLoading,
@@ -385,7 +396,6 @@ class WebView extends React.Component<AndroidWebViewProps, State> {
         onMessage={this.onMessage}
         onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
         onLoadResource={this.onLoadResource}
-        onLoadingResource={this.onLoadingResource}
         ref={this.webViewRef}
         // TODO: find a better way to type this.
         source={resolveAssetSource(source as ImageSourcePropType)}

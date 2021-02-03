@@ -9,16 +9,17 @@ import com.facebook.react.uimanager.events.RCTEventEmitter
  */
 class TopLoadingResourceEvent(viewId: Int, private val mData: WritableMap) : Event<TopLoadingResourceEvent>(viewId) {
   companion object {
-    // TODO: Change EVENT_NAME (will likely need to tweak React-Native/TypeScript code to do this
-    // const val EVENT_NAME = "topShouldStartLoadWithRequest"
     const val EVENT_NAME = "topLoadingResource"
   }
 
+  // TODO: Still need this? Delete if still working after commented-out
+  /*
   init {
     mData.putString("navigationType", "other")
     // Android does not raise shouldOverrideUrlLoading for inner frames
     mData.putBoolean("isTopFrame", true)
   }
+  */
 
   override fun getEventName(): String = EVENT_NAME
 
