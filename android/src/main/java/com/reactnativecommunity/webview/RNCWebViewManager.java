@@ -39,6 +39,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -74,6 +75,7 @@ import com.reactnativecommunity.webview.events.TopLoadingErrorEvent;
 import com.reactnativecommunity.webview.events.TopHttpErrorEvent;
 import com.reactnativecommunity.webview.events.TopLoadingFinishEvent;
 import com.reactnativecommunity.webview.events.TopLoadingProgressEvent;
+import com.reactnativecommunity.webview.events.TopLoadingResourceEvent;
 import com.reactnativecommunity.webview.events.TopLoadingStartEvent;
 import com.reactnativecommunity.webview.events.TopMessageEvent;
 import com.reactnativecommunity.webview.events.TopShouldStartLoadWithRequestEvent;
@@ -1024,10 +1026,25 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
         return true;
     }
 
+    @Override
+    public void onLoadResource(WebView webView, String url) {
+      Toast.makeText(webView.getContext(), "onLoadResource", Toast.LENGTH_LONG).show();
+      emitLoadResourceEvent(webView, url);
+      super.onLoadResource(webView, url);
+    }
+
     protected void emitFinishEvent(WebView webView, String url) {
       dispatchEvent(
         webView,
         new TopLoadingFinishEvent(
+          webView.getId(),
+          createWebViewEvent(webView, url)));
+    }
+
+    protected void emitLoadResourceEvent(WebView webView, String url) {
+      dispatchEvent(
+        webView,
+        new TopLoadingResourceEvent(
           webView.getId(),
           createWebViewEvent(webView, url)));
     }
