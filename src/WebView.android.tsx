@@ -35,7 +35,7 @@ import {
 } from './WebViewTypes';
 
 import styles from './WebView.styles';
-import { alertIsPresent } from 'selenium-webdriver/lib/until';
+// import { alertIsPresent } from 'selenium-webdriver/lib/until';
 
 const UIManager = NotTypedUIManager as RNCWebViewUIManagerAndroid;
 
@@ -298,20 +298,18 @@ class WebView extends React.Component<AndroidWebViewProps, State> {
   };
 
   onLoadResource = (event: LoadResourceEvent) => {
+    console.warn("onLoadResource is working");
     const { onLoadResource } = this.props;
     if (onLoadResource) {
       onLoadResource(event);
-    } else {
-      alert("onLoadResource is working... TODO: Delete 'else' block from onLoadResource");
     }
   }
 
   onLoadingResource = (event: LoadResourceEvent) => {
+    console.warn("onLoadingResource is working");
     const { onLoadingResource } = this.props;
     if (onLoadingResource) {
       onLoadingResource(event);
-    } else {
-      alert("onLoadingResource is working... TODO: Delete 'else' block from onLoadingResource");
     }
   }
 
