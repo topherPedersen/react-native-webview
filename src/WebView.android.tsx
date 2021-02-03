@@ -306,10 +306,21 @@ class WebView extends React.Component<AndroidWebViewProps, State> {
     }
   }
 
+  onLoadingResource = (event: LoadResourceEvent) => {
+    const { onLoadingResource } = this.props;
+    if (onLoadingResource) {
+      onLoadingResource(event);
+    } else {
+      alert("onLoadingResource is working... TODO: Delete 'else' block from onLoadingResource");
+    }
+  }
+
   render() {
     const {
       onMessage,
       onShouldStartLoadWithRequest: onShouldStartLoadWithRequestProp,
+      onLoadResource,
+      onLoadingResource, // need this?
       originWhitelist,
       renderError,
       renderLoading,
@@ -375,6 +386,8 @@ class WebView extends React.Component<AndroidWebViewProps, State> {
         onRenderProcessGone={this.onRenderProcessGone}
         onMessage={this.onMessage}
         onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
+        onLoadResource={this.onLoadResource}
+        onLoadingResource={this.onLoadingResource}
         ref={this.webViewRef}
         // TODO: find a better way to type this.
         source={resolveAssetSource(source as ImageSourcePropType)}
