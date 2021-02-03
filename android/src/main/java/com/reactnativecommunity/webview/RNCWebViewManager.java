@@ -611,7 +611,7 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
     }
     export.put(TopLoadingProgressEvent.EVENT_NAME, MapBuilder.of("registrationName", "onLoadingProgress"));
     export.put(TopShouldStartLoadWithRequestEvent.EVENT_NAME, MapBuilder.of("registrationName", "onShouldStartLoadWithRequest"));
-    export.put(TopLoadingResourceEvent.EVENT_NAME, MapBuilder.of("registrationName", "onLoadingResource"));
+    export.put(TopLoadingResourceEvent.EVENT_NAME, MapBuilder.of("registrationName", "onLoadResource"));
     export.put(ScrollEventType.getJSEventName(ScrollEventType.SCROLL), MapBuilder.of("registrationName", "onScroll"));
     export.put(TopHttpErrorEvent.EVENT_NAME, MapBuilder.of("registrationName", "onHttpError"));
     export.put(TopRenderProcessGoneEvent.EVENT_NAME, MapBuilder.of("registrationName", "onRenderProcessGone"));
@@ -1030,8 +1030,13 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
     @Override
     public void onLoadResource(WebView webView, String url) {
       Toast.makeText(webView.getContext(), "onLoadResource", Toast.LENGTH_LONG).show();
-      emitLoadResourceEvent(webView, url);
-      super.onLoadResource(webView, url);
+      // emitLoadResourceEvent(webView, url);
+      // super.onLoadResource(webView, url);
+      dispatchEvent(
+        webView,
+        new TopLoadingResourceEvent(
+          webView.getId(),
+          createWebViewEvent(webView, url)));
     }
 
     protected void emitFinishEvent(WebView webView, String url) {

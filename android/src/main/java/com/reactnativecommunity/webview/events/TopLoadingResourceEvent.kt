@@ -11,13 +11,11 @@ class TopLoadingResourceEvent(viewId: Int, private val mData: WritableMap) : Eve
   companion object {
     // TODO: Change EVENT_NAME (will likely need to tweak React-Native/TypeScript code to do this
     // const val EVENT_NAME = "topShouldStartLoadWithRequest"
-    const val EVENT_NAME = "topLoadingResource"
+    const val EVENT_NAME = "onLoadResource"
   }
 
   init {
-    mData.putString("navigationType", "other")
-    // Android does not raise shouldOverrideUrlLoading for inner frames
-    mData.putBoolean("isTopFrame", true)
+    mData.putString("resourceUrl", "https://foo.bar/baz.pdf")
   }
 
   override fun getEventName(): String = EVENT_NAME

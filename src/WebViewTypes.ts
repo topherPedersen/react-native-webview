@@ -173,8 +173,8 @@ export type WebViewRenderProcessGoneEvent = NativeSyntheticEvent<WebViewRenderPr
 
 export type WebViewScrollEvent = NativeSyntheticEvent<NativeScrollEvent>;
 
-// export type LoadResourceEvent = NativeSyntheticEvent<LoadResource>;
-export type LoadResourceEvent = any;
+export type LoadResourceEvent = NativeSyntheticEvent<LoadResource | any>;
+// export type LoadResourceEvent = any;
 
 export type DataDetectorTypes =
   | 'phoneNumber'

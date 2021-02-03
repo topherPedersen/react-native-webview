@@ -31,11 +31,11 @@ import {
   NativeWebViewAndroid,
   State,
   RNCWebViewUIManagerAndroid,
-  LoadResourceEvent,
+  // LoadResourceEvent,
 } from './WebViewTypes';
 
 import styles from './WebView.styles';
-import { alertIsPresent } from 'selenium-webdriver/lib/until';
+// import { alertIsPresent } from 'selenium-webdriver/lib/until';
 
 const UIManager = NotTypedUIManager as RNCWebViewUIManagerAndroid;
 
@@ -88,6 +88,7 @@ class WebView extends React.Component<AndroidWebViewProps, State> {
 
   componentDidMount = () => {
     BatchedBridge.registerCallableModule(this.messagingModuleName, this);
+    console.warn("THIS THING WORKING???");
   };
 
   getCommands = () => UIManager.getViewManagerConfig('RNCWebView').Commands;
@@ -297,22 +298,15 @@ class WebView extends React.Component<AndroidWebViewProps, State> {
     }
   };
 
-  onLoadResource = (event: LoadResourceEvent) => {
-    const { onLoadResource } = this.props;
-    if (onLoadResource) {
-      onLoadResource(event);
-    } else {
-      alert("onLoadResource is working... TODO: Delete 'else' block from onLoadResource");
-    }
+
+  onLoadResource = (event?: any) => {
+    console.log(event);
+    console.warn("onLoadResource");
   }
 
-  onLoadingResource = (event: LoadResourceEvent) => {
-    const { onLoadingResource } = this.props;
-    if (onLoadingResource) {
-      onLoadingResource(event);
-    } else {
-      alert("onLoadingResource is working... TODO: Delete 'else' block from onLoadingResource");
-    }
+  onLoadingResource = (event?: any) => {
+    console.log(event);
+    console.warn("onLoadingResource");
   }
 
   render() {
@@ -362,8 +356,8 @@ class WebView extends React.Component<AndroidWebViewProps, State> {
       }
     }
 
-    const NativeWebView
-      = (nativeConfig.component as typeof NativeWebViewAndroid) || RNCWebView;
+    const NativeWebView = (nativeConfig.component as typeof NativeWebViewAndroid) || RNCWebView;
+    // const NativeWebView = nativeConfig.component as typeof NativeWebViewAndroid;
 
     this.onShouldStartLoadWithRequest = createOnShouldStartLoadWithRequest(
       this.onShouldStartLoadWithRequestCallback,
