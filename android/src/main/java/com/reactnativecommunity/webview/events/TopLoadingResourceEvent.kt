@@ -8,7 +8,7 @@ import com.facebook.react.uimanager.events.RCTEventEmitter
  * Event emitted when loading is completed.
  */
 class TopLoadingResourceEvent(viewId: Int, private val mEventData: WritableMap) :
-  Event<TopLoadingFinishEvent>(viewId) {
+  Event<TopLoadingResourceEvent>(viewId) {
   companion object {
     const val EVENT_NAME = "topLoadingResource"
   }
